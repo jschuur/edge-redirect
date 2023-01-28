@@ -1,11 +1,11 @@
 import { countryCodeEmoji } from 'country-code-emoji';
 import { RedirectLink } from './index';
 
-const template = (title: string = 'foo', body: string) => `
+const template = (title: string = '', body: string) => `
   <!doctype html>
   <html>
     <head>
-      <title>Redirect Link Summary</title>
+      <title>${title}</title>
       <style>
         body {
           font-family: sans-serif;
@@ -20,7 +20,7 @@ const template = (title: string = 'foo', body: string) => `
 function hello(country: string) {
   const emoji = countryCodeEmoji(country);
 
-  return `Hi${emoji ? ` from ${emoji}` : ''}!`;
+  return `Hi${emoji ? ` ${emoji}` : ''}!`;
 }
 
 export const homePage = (cf: any) =>
@@ -38,7 +38,7 @@ export async function summaryPage(db: D1Database, cf: any): Promise<string> {
   const emoji = countryCodeEmoji(cf?.country);
 
   return template(
-    `Redirect Link Summary`,
+    `Link Summary | URL Shortener`,
     `
     ${
       listedLinks
