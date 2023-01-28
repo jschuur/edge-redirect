@@ -19,6 +19,7 @@
     "list:prod": "NO_D1_WARNING=true wrangler d1 execute links --command 'SELECT * FROM links'"
   },
   "dependencies": {
+    "country-code-emoji": "^2.3.0",
     "is-url": "^1.2.4"
   }
 }

@@ -1,14 +1,17 @@
 import isUrl from 'is-url';
 
+import { listUrls } from './list';
+
 export interface Env {
   // LINKS: KVNamespace;
   DB: D1Database;
 }
 
-interface RedirectLink {
+export interface RedirectLink {
   slug: string;
   url: string;
   uses: number;
+  unlisted: number;
 }
 
 export default {
@@ -17,6 +20,12 @@ export default {
 
     const url = new URL(request.url);
     const slug = url.pathname.slice(1);
+
+    console.log({ slug });
+    if (slug === '@list')
+      return new Response(await listUrls(db, request.cf), {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      });
 
     if (!slug) return new Response('Missing redirect slug', { status: 404 });
 
