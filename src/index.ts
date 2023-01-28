@@ -1,9 +1,8 @@
 import isUrl from 'is-url';
 
-import { listUrls } from './list';
+import { homePage, summaryPage } from './pages';
 
 export interface Env {
-  // LINKS: KVNamespace;
   DB: D1Database;
 }
 
@@ -21,21 +20,22 @@ export default {
     const url = new URL(request.url);
     const slug = url.pathname.slice(1);
 
-    console.log({ slug });
-    if (slug === '@list')
-      return new Response(await listUrls(db, request.cf), {
+    if (!slug)
+      return new Response(homePage(request.cf), {
         headers: { 'Content-Type': 'text/html; charset=utf-8' },
       });
 
-    if (!slug) return new Response('Missing redirect slug', { status: 404 });
+    if (slug === '@list')
+      return new Response(await summaryPage(db, request.cf), {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      });
 
-    // const redirectUrl = await env.LINKS.get(path);
     const result: RedirectLink = await db
       .prepare(`SELECT url FROM links WHERE slug = ?1;`)
       .bind(slug)
       .first();
 
-    if (!result) return new Response(`Unknown redirect slug '${slug}'`, { status: 404 });
+    if (!result) return new Response(`Unknown slug '${slug}'`, { status: 404 });
 
     const redirectUrl = result.url;
     await db.prepare(`UPDATE links SET uses = uses + 1 WHERE slug = ?1;`).bind(slug).run();
