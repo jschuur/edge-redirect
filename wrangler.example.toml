@@ -1,6 +1,13 @@
 name = "edge-redirect"
 main = "src/index.ts"
 compatibility_date = "2023-01-28"
-kv_namespaces = [
-  { binding = "LINKS", id = "", preview_id="" }
-]
+
+# kv_namespaces = [
+#   { binding = "LINKS", id = "", preview_id="" }
+# ]
+
+[[ d1_databases ]]
+binding = "DB"
+database_name = "links"
+database_id = ""
+preview_database_id = ""

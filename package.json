@@ -9,8 +9,10 @@
   },
   "private": true,
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler publish"
+    "dev": "NO_D1_WARNING=true wrangler dev",
+    "deploy": "NO_D1_WARNING=true wrangler publish",
+    "list": "NO_D1_WARNING=true wrangler d1 execute links_preview --command 'SELECT * FROM links'",
+    "list:prod": "NO_D1_WARNING=true wrangler d1 execute links --command 'SELECT * FROM links'"
   },
   "dependencies": {
     "is-url": "^1.2.4"
