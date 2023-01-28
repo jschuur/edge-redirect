@@ -11,6 +11,10 @@
   "scripts": {
     "dev": "NO_D1_WARNING=true wrangler dev",
     "deploy": "NO_D1_WARNING=true wrangler publish",
+    "exec": "NO_D1_WARNING=true wrangler d1 execute links_preview --command ",
+    "exec:prod": "NO_D1_WARNING=true wrangler d1 execute links_preview --command ",
+    "add": "NO_D1_WARNING=true wrangler d1 execute links_preview --command \"INSERT INTO links (slug, url) VALUES ('$SLUG', '$URL')\"",
+    "add:prod": "NO_D1_WARNING=true wrangler d1 execute links --command \"INSERT INTO links (slug, url) VALUES ('$SLUG', '$URL')\"",
     "list": "NO_D1_WARNING=true wrangler d1 execute links_preview --command 'SELECT * FROM links'",
     "list:prod": "NO_D1_WARNING=true wrangler d1 execute links --command 'SELECT * FROM links'"
   },
